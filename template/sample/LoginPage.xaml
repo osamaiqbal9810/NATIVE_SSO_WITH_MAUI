@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChatWithDocsMobileApp.LoginPage"
+ 
+             Padding="0">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="10"
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="FillAndExpand">
+
+            <Image
+                Source="logo.png"
+                HeightRequest="110"
+                Aspect="AspectFit"
+                Margin="0,20,0,0"
+                SemanticProperties.Description="Chat with Documents" />
+
+            <VerticalStackLayout 
+                Margin="0,30,0,0"
+                Spacing="25">
+                <Frame BorderColor="Gray" Padding="0" HeightRequest="50" CornerRadius="5">
+                    <Entry 
+                        x:Name="email"
+                        Placeholder="Email"
+                        Text="{Binding Email}" />
+                </Frame>
+
+                <Frame BorderColor="Gray" Padding="0" HeightRequest="50" CornerRadius="5">
+                    <Entry 
+                        x:Name="password"
+                        Placeholder="Password"
+                        IsPassword="True"
+                        Text="{Binding Password}" />
+                </Frame>
+            </VerticalStackLayout>
+
+            <Label HorizontalTextAlignment="End" FontAttributes="Bold" TextColor="#00638a">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Forgot Password?">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ForgotPassword}" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Button
+                x:Name="CounterBtn"
+                Text="Login" 
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="OnLoginClicked"
+                BackgroundColor="#00638a"
+                HorizontalOptions="Fill" />
+
+            <VerticalStackLayout Margin="0,20,0,0">
+                 <Frame 
+                    CornerRadius="5" 
+                    BorderColor="Gray" 
+                    Padding="5" 
+                    BackgroundColor="#00638a">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="googleButton_Clicked" />
+                    </Frame.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+                        <ImageButton 
+                            Source="google.png"
+                            HeightRequest="25"
+                            WidthRequest="25"
+                            Aspect="AspectFit"
+                            x:Name="googleButton"
+                            Margin="0,0,10,0" />
+                        <Label 
+                            Text="Sign in with Google" 
+                            VerticalOptions="Center" 
+                            FontAttributes="Bold" 
+                            TextColor="White" />
+                    </HorizontalStackLayout>
+                </Frame>
+                <ActivityIndicator x:Name="isLoading" IsRunning="{Binding IsLoading}" />
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
