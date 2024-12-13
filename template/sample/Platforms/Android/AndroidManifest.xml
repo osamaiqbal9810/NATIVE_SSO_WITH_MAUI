@@ -17,5 +17,19 @@
         tools:replace="android:icon,android:label"
     android:usesCleartextTraffic="true"
 >
+  <meta-data
+        android:name="com.microsoft.identity.client.PublicClientApplication"
+        android:resource="@raw/auth_config_ciam_auth" />
+  <activity android:name="com.microsoft.identity.client.BrowserTabActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="com.ps19.chatwithdocsmobileapp"
+                    android:path="/h/nuzJWO94nwR7wzh68ANsWEgyA="
+                    android:scheme="msauth" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

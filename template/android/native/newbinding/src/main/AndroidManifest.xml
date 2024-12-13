@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+  <application
+    android:allowBackup="true"
+    android:dataExtractionRules="@xml/data_extraction_rules"
+    android:fullBackupContent="@xml/backup_rules"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    tools:targetApi="31">
+    <meta-data
+      android:name="com.microsoft.identity.client.PublicClientApplication"
+      android:resource="@raw/auth_config_ciam_auth" />
+    <!--        <activity-->
+    <!--            android:name=".MainActivity"-->
+    <!--            android:exported="true"-->
+    <!--            android:launchMode="singleTop"-->
+    <!--            >-->
+    <!--            <intent-filter>-->
+    <!--                <action android:name="android.intent.action.MAIN" />-->
+    <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+    <!--            </intent-filter>-->
+    <!--        </activity>-->
+<!--    <activity android:name="com.microsoft.identity.client.BrowserTabActivity">-->
+<!--      <intent-filter>-->
+<!--        <action android:name="android.intent.action.VIEW" />-->
+<!--        <category android:name="android.intent.category.DEFAULT" />-->
+<!--        <category android:name="android.intent.category.BROWSABLE" />-->
+<!--        <data-->
+<!--          android:host="com.ps19.chatwithdocsmobileapp"-->
+<!--          android:path="/h/nuzJWO94nwR7wzh68ANsWEgyA="-->
+<!--          android:scheme="msauth" />-->
+<!--      </intent-filter>-->
+<!--    </activity>-->
+    <activity
+      android:name="com.microsoft.identity.client.BrowserTabActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="msal0058a1e6-3475-4ddd-8716-7b94aecd21f9"
+          android:host="auth" />
+      </intent-filter>
+    </activity>
+  </application>
 
 </manifest>

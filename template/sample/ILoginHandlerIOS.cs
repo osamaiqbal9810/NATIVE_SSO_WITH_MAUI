@@ -7,6 +7,7 @@ public interface ILoginHandlerIOS
 {
 #if IOS
     event Action<GoogleUserInfo?> onGoogleLoginCompleted;
-    void handleGogoleLogIn();  // Return object to avoid platform-specific types in shared code
+    void handleGogoleLogIn();  
+    void handleMicrosoftLogIn(); 
 #endif
 }

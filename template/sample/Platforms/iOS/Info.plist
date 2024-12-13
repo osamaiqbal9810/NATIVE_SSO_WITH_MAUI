@@ -36,6 +36,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.246654251044-s95rtnjr99coo0nhn6add8q8pu7s4grr</string>
+				<string>msauth.com.ps19.chatwithdocsmobileapp</string>
 			</array>
 		</dict>
 	</array>
@@ -45,5 +46,14 @@
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.ps19.chatwithdocsmobileapp</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>msauthv2</string>
+		<string>msauthv3</string>
+	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)com.ps19.chatwithdocsmobileapp</string>
+	</array>
 </dict>
 </plist>

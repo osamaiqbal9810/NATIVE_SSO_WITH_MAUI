@@ -1,9 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ChatWithDocsMobileApp.LoginPage"
- 
-             Padding="0">
+             x:Class="ChatWithDocsMobileApp.LoginPage">
 
     <ScrollView>
         <VerticalStackLayout
@@ -58,7 +56,7 @@
                 BackgroundColor="#00638a"
                 HorizontalOptions="Fill" />
 
-            <VerticalStackLayout Margin="0,20,0,0">
+            <VerticalStackLayout Margin="0,20,0,0" Spacing="10">
                  <Frame 
                     CornerRadius="5" 
                     BorderColor="Gray" 
@@ -70,13 +68,39 @@
                     <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
                         <ImageButton 
                             Source="google.png"
-                            HeightRequest="25"
-                            WidthRequest="25"
+                            HeightRequest="15"
+                            WidthRequest="15"
                             Aspect="AspectFit"
                             x:Name="googleButton"
                             Margin="0,0,10,0" />
                         <Label 
                             Text="Sign in with Google" 
+                            VerticalOptions="Center" 
+                            FontAttributes="Bold" 
+                            TextColor="White" />
+                    </HorizontalStackLayout>
+                </Frame>
+                
+                 <Frame
+                   x:Name="MicrosoftFrame"
+                    CornerRadius="5" 
+                    BorderColor="Gray" 
+                    Padding="5"
+                     IsVisible="Collapse"
+                    BackgroundColor="#00638a">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="microsoftButton_Clicked" />
+                    </Frame.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+                        <ImageButton 
+                            Source="microsoft.png"
+                            HeightRequest="15"
+                            WidthRequest="15"
+                            Aspect="AspectFit"
+                            x:Name="microsoftButton"
+                            Margin="0,0,10,0" />
+                        <Label 
+                            Text="Sign in with Microsoft" 
                             VerticalOptions="Center" 
                             FontAttributes="Bold" 
                             TextColor="White" />

@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!--
+      Enable trim analyzers for Android class libraries.
+      To learn more, see: https://learn.microsoft.com/dotnet/core/deploying/trimming/prepare-libraries-for-trimming
+    -->
+    <IsTrimmable>true</IsTrimmable>
+    <!--
+      NOTE: you can simply add .aar or .jar files in this directory to be included in the project.
+      To learn more, see: https://learn.microsoft.com/dotnet/maui/migration/android-binding-projects
+    -->
+  </PropertyGroup>
+  
+  <!-- Reference to Android project -->
+  <ItemGroup>
+    <NLIGradleProjectReference Include="../native">
+      <ModuleName>newbinding</ModuleName>
+      <!-- Metadata applicable to @(AndroidLibrary) will be used if set, otherwise the following defaults will be used:
+      <Bind>true</Bind>
+      <Pack>true</Pack>
+      -->
+    </NLIGradleProjectReference>
+  </ItemGroup>
+  <!-- Reference to NuGet for building bindings -->
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Maui.NativeLibraryInterop.BuildTasks" Version="0.0.1-pre1" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.66.2" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.66.2" />
+    <PackageReference Include="Xamarin.AndroidX.MultiDex" Version="2.0.1.30" />
+  </ItemGroup>
+
+<!--  <ItemGroup Condition="$(TargetFramework.Contains('android'))">
+    <AndroidPackage Include="com.microsoft.identity.client:msal:5.0.0" />
+    <AndroidPackage Include="com.android.volley:volley:1.2.1" />
+    <AndroidPackage Include="androidx.appcompat:appcompat:1.4.1" />
+    <AndroidPackage Include="androidx.browser:browser:1.4.0" />
+    <AndroidPackage Include="androidx.lifecycle:lifecycle-common-java8:2.4.1" />
+
+</ItemGroup>-->
+<PropertyGroup>
+    <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+</PropertyGroup>
+</Project>

@@ -3,7 +3,10 @@ using ChatWithDocsMobileApp.Views;
 using ChatWithDocsMobileApp.Services;
 using ChatWithDocsMobileApp.ViewModels;
 using ChatWithDocsMobileApp.Framework;
-#if IOS
+
+#if ANDROID
+//using NewBinding = NewBindingAndroid.DotnetNewBinding;
+#elif IOS
 using NewBinding = NewBindingMaciOS.DotnetNewBinding;
 #elif (NETSTANDARD || !PLATFORM) || (NET6_0_OR_GREATER && !IOS && !ANDROID)
 using NewBinding = System.Object;
@@ -29,9 +32,12 @@ public partial class LoginPage : ContentPage
 #if ANDROID
         _loginHandlerAndroid = ServiceResolver.ServiceProvider.GetRequiredService<ILoginHandlerAndroid>();
         _loginHandlerAndroid.onGoogleLoginCompleted += onGoogleLoginCompleted;
+        MicrosoftFrame.IsVisible = false; // it is not implemented for maui Android for now
+
 #elif IOS
         _loginHandlerIOS = ServiceResolver.ServiceProvider.GetRequiredService<ILoginHandlerIOS>();
         _loginHandlerIOS.onGoogleLoginCompleted += onGoogleLoginCompleted;
+         MicrosoftFrame.IsVisible = true; // it is not implemented for maui Android for now
 #endif
     }
 
@@ -50,6 +56,25 @@ public partial class LoginPage : ContentPage
             _loginHandlerAndroid?.handleLoginAsync();
 #elif IOS
             _loginHandlerIOS?.handleGogoleLogIn();
+#endif
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+
+    // Google login click listner
+    private void microsoftButton_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            _loginViewModel.IsLoading = true;
+#if ANDROID
+           
+            _loginHandlerAndroid?.handleLoginAsync();
+#elif IOS
+            _loginHandlerIOS?.handleMicrosoftLogIn();
 #endif
         }
         catch (Exception ex)

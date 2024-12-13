@@ -1,13 +1,22 @@
 plugins {
     id("com.android.library")
+    kotlin("android")
 }
 
+
 android {
-    namespace = "com.example.newbinding"
-    compileSdk = 34
+
+    namespace = "com.ps19.chatwithdocsmobileapp"
+    compileSdk = 35
 
     defaultConfig {
-        minSdk = 21
+        //applicationId = "com.ps19.mykotlinlibrary"
+        testOptions.targetSdk = 34
+        minSdk = 24
+        //  targetSdk =34
+        version = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -20,32 +29,29 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
-}
-
-// Create configuration for copyDependencies
-configurations {
-    create("copyDependencies")
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }
 
 dependencies {
 
-    // Add package dependency for binding library
-    // Uncomment line below and replace {dependency.name.goes.here} with your dependency
-    // implementation("{dependency.name.goes.here}")
-
-    // Copy dependencies for binding library
-    // Uncomment line below and replace {dependency.name.goes.here} with your dependency
-    // "copyDependencies"("{dependency.name.goes.here}")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation("androidx.credentials:credentials:1.2.2")
+    implementation("androidx.credentials:credentials-play-services-auth:1.2.2")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.0.0")
+    implementation("com.android.volley:volley:1.2.1")
+    implementation("com.microsoft.identity.client:msal:5.8.1")
 }
 
-// Copy dependencies for binding library
-project.afterEvaluate {
-    tasks.register<Copy>("copyDeps") {
-        from(configurations["copyDependencies"])
-        into("${buildDir}/outputs/deps")
-    }
-    tasks.named("preBuild") { finalizedBy("copyDeps") }
-}

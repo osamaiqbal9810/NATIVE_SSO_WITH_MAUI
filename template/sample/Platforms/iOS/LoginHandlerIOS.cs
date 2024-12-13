@@ -42,6 +42,38 @@ namespace ChatWithDocsMobileApp.Platforms.iOS
                 }
             });
         }
+
+        public void handleMicrosoftLogIn()
+        {
+            // Ensure you're accessing the correct iOS RootViewController
+            var rootViewController = UIApplication.SharedApplication.KeyWindow?.RootViewController;
+
+            NewBinding.PerformMicrosoftSignIn(rootViewController, (userDetails, error) =>
+            {
+                if (error != null)
+                {
+                    Console.WriteLine($"Error signing in: {error.LocalizedDescription}");
+                    onGoogleLoginCompleted?.Invoke(null);
+                }
+                else if (userDetails != null)
+                {
+                    // Convert NSDictionary to GoogleUserInfoiOS
+                    var userDict = userDetails.ToDictionary();
+                    var microsoftUserInfo = new GoogleUserInfo
+                    {
+                        accessToken = userDict.TryGetValue("accessToken", out var idToken) ? idToken : null,
+                        provider = "Microsoft",
+                        providerId = "microsoft",
+                        name = userDict.TryGetValue("fullName", out var fullName) ? fullName : null,
+                        email = userDict.TryGetValue("email", out var email) ? email : null,
+                       // picture = userDict.TryGetValue("profilePicture", out var profilePicture) ? profilePicture : null
+                    };
+                    Console.Write(microsoftUserInfo);
+                    onGoogleLoginCompleted?.Invoke(microsoftUserInfo);
+                    Console.WriteLine($"User details retrieved: {string.Join(", ", userDict)}");
+                }
+            });
+        }
     }
 
     public static class NSDictionaryExtensions
