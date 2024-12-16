@@ -210,6 +210,7 @@ class LoginHelper(private val context: Context) {
         }
         return null
     }
+
     private fun handleSignIn(result: GetCredentialResponse): GoogleSignInResult? {
         Log.i("LoginHelper", "Login successful!")
         val credential = result.credential
@@ -248,7 +249,6 @@ class LoginHelper(private val context: Context) {
         }
 
         @JvmStatic
-        //@RequiresApi(33)
         fun invokeHandleLoginMicrosoft(context: Context, clientId: String, callback: Callback) {
             val helper = LoginHelper(context)
             Log.i("ClientId", clientId)
