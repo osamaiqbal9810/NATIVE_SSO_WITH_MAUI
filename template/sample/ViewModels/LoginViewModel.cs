@@ -8,6 +8,12 @@ namespace ChatWithDocsMobileApp.ViewModels
     {
         [ObservableProperty]
         private bool isLoading;
+
+        [ObservableProperty]
+        private string? email;
+
+        [ObservableProperty]
+        private string? password;
     }
 }
 

@@ -62,7 +62,8 @@ namespace ChatWithDocsMobileApp.Shared.Services
                var isSuccess =  response.EnsureSuccessStatusCode();
                 if (!isSuccess.IsSuccessStatusCode)
                 {
-                    throw new Exception(isSuccess?.RequestMessage?.ToString());
+                    //await DisplayAlert("Login Failed", isLoggedIn.Message, "Close");
+                    //throw new Exception(isSuccess?.RequestMessage?.ToString());
                 }
 
                 // Read and return the response content

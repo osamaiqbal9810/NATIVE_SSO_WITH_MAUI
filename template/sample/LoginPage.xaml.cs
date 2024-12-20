@@ -31,19 +31,27 @@ public partial class LoginPage : ContentPage
 
 #if ANDROID
         _loginHandlerAndroid = ServiceResolver.ServiceProvider.GetRequiredService<ILoginHandlerAndroid>();
-        _loginHandlerAndroid.onGoogleLoginCompleted += onGoogleLoginCompleted;
+        _loginHandlerAndroid.onGoogleLoginCompleted += onSSOLoginCompleted;
         MicrosoftFrame.IsVisible = false; // it is not implemented for maui Android for now
 
 #elif IOS
         _loginHandlerIOS = ServiceResolver.ServiceProvider.GetRequiredService<ILoginHandlerIOS>();
-        _loginHandlerIOS.onGoogleLoginCompleted += onGoogleLoginCompleted;
+        _loginHandlerIOS.onGoogleLoginCompleted += onSSOLoginCompleted;
          MicrosoftFrame.IsVisible = true; // it is not implemented for maui Android for now
 #endif
     }
 
-    private void OnLoginClicked(object sender, EventArgs e)
+    private async void OnLoginClicked(object sender, EventArgs e)
     {
-        App.Current?.MainPage?.Navigation.PushAsync(new DashboardPage());
+        var isLoggedIn = await _loginService.loginInAppUser(email: _loginViewModel.Email ?? "" , password: _loginViewModel.Password ?? "");
+        if (isLoggedIn.Success)
+        {
+            App.Current?.MainPage?.Navigation.PushAsync(new DashboardPage());
+        }
+        else
+        {
+            await DisplayAlert("Login Failed", isLoggedIn.Message, "Close");
+        }
     }
 
     // Google login click listner
@@ -83,12 +91,12 @@ public partial class LoginPage : ContentPage
         }
     }
 
-    private async void onGoogleLoginCompleted(GoogleUserInfo? userInfo)
+    private async void onSSOLoginCompleted(GoogleUserInfo? userInfo)
     {
         _loginViewModel.IsLoading = false;
         if (userInfo != null)
         {
-         var isLoggedIn = await _loginService.loginGmailUser(userInfo);
+         var isLoggedIn = await _loginService.loginSSOUser(userInfo);
             if (isLoggedIn.Success)
             {
                 App.Current?.MainPage?.Navigation.PushAsync(new DashboardPage());

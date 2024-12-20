@@ -85,6 +85,7 @@ public class SSOHelper : NSObject
     @objc public func signIn(presentingViewController: UIViewController, completion: @escaping (_ user: NSDictionary?, _ error: Error?) -> Void) {
         do {
             // Configure the MSAL application
+            //TODO: // handle clientid and other parameters from outside
             let authority = try MSALAADAuthority(url: URL(string: "https://login.microsoftonline.com/organizations")!)
             let config = MSALPublicClientApplicationConfig(clientId: "0058a1e6-3475-4ddd-8716-7b94aecd21f9", redirectUri: "msauth.com.ps19.chatwithdocsmobileapp://auth", authority: authority)
             
@@ -111,8 +112,8 @@ public class SSOHelper : NSObject
                 let userDetails: NSDictionary = [
                     "accessToken": result.accessToken,
                     "accountId": result.account.identifier ?? "",
-                    "name": result.account.username ?? "",
-                    "email": self.extractEmail(from: result.accessToken) ?? "",
+                    "fullName": result.account.accountClaims?["name"] ?? "",
+                    "email": result.account.username ?? "",
                     "scopes": result.scopes.joined(separator: ", ")
                 ]
                 print("Creation Success", result.account)
@@ -124,41 +125,4 @@ public class SSOHelper : NSObject
             completion(nil, configError)
         }
     }
-    
-    @objc public func extractEmail(from accessToken: String) -> String? {
-        // Split the JWT into its components
-        let tokenParts = accessToken.split(separator: ".")
-        guard tokenParts.count == 3 else {
-            print("Invalid token format")
-            return nil
-        }
-
-        // Decode the payload (second part of the token)
-        let payload = String(tokenParts[1])
-        guard let payloadData = Data(base64Encoded: payload.fixBase64Padding(), options: .ignoreUnknownCharacters),
-              let json = try? JSONSerialization.jsonObject(with: payloadData, options: []),
-              let payloadDict = json as? [String: Any] else {
-            print("Unable to decode token payload")
-            return nil
-        }
-
-        // Extract the email
-        if let email = payloadDict["preferred_username"] as? String {
-            return email
-        } else if let email = payloadDict["email"] as? String {
-            return email
-        } else {
-            print("Email not found in token payload")
-            return nil
-        }
-    }
-
 }
-// Helper function to fix Base64 padding if needed
-extension String {
-    func fixBase64Padding() -> String {
-        let paddedLength = (self.count + 3) / 4 * 4
-        return self.padding(toLength: paddedLength, withPad: "=", startingAt: 0)
-    }
-}
-
