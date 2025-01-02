@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ChatWithDocsMobileApp
 {
-    public class GoogleUserInfo
+    public class UserInfo
     {
         public string provider { get; set; } = "";
         public string providerId { get; set; } = "";
@@ -11,7 +11,7 @@ namespace ChatWithDocsMobileApp
         public string accessToken { get; set; } = "";
         public string refreshToken { get; set; } = "";
         public string idToken { get; set; } = "";
-
+        public string password { get; set; } = "";
     }
 }
 

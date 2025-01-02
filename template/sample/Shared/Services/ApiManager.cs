@@ -58,16 +58,19 @@ namespace ChatWithDocsMobileApp.Shared.Services
                 // Send the request and get the response
                 using var response = await _httpClient.SendAsync(requestMessage);
 
-                // Ensure the response is successful, or throw an exception
-               var isSuccess =  response.EnsureSuccessStatusCode();
-                if (!isSuccess.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                 {
-                    //await DisplayAlert("Login Failed", isLoggedIn.Message, "Close");
-                    //throw new Exception(isSuccess?.RequestMessage?.ToString());
+                    return await response.Content.ReadAsStringAsync();
                 }
-
-                // Read and return the response content
-                return await response.Content.ReadAsStringAsync();
+                else
+                {
+                    // Read the error content as a string
+                 var errorContent = await response.Content.ReadAsStringAsync();
+                 var json = JsonSerializer.Deserialize<object>(errorContent);
+                    
+                  return $"{json}";
+                  
+                }
             }
             catch (Exception ex)
             {

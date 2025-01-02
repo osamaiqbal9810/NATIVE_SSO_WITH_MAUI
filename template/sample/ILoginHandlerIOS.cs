@@ -6,7 +6,7 @@ namespace ChatWithDocsMobileApp;
 public interface ILoginHandlerIOS
 {
 #if IOS
-    event Action<GoogleUserInfo?> onGoogleLoginCompleted;
+    event Action<UserInfo?> onGoogleLoginCompleted;
     void handleGogoleLogIn();  
     void handleMicrosoftLogIn(); 
 #endif

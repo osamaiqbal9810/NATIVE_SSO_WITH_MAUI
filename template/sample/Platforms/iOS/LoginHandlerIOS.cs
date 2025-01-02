@@ -10,7 +10,7 @@ namespace ChatWithDocsMobileApp.Platforms.iOS
 {
     public class LoginHandleriOS : ILoginHandlerIOS
     {
-        public event Action<GoogleUserInfo?>? onGoogleLoginCompleted = null;
+        public event Action<UserInfo?>? onGoogleLoginCompleted = null;
         public void handleGogoleLogIn()
         {
             // Ensure you're accessing the correct iOS RootViewController
@@ -27,7 +27,7 @@ namespace ChatWithDocsMobileApp.Platforms.iOS
                 {
                     // Convert NSDictionary to GoogleUserInfoiOS
                     var userDict = userDetails.ToDictionary();
-                    var googleUserInfo = new GoogleUserInfo
+                    var googleUserInfo = new UserInfo
                     {
                         accessToken = userDict.TryGetValue("idToken", out var idToken) ? idToken : null,
                         provider = "Google",
@@ -59,7 +59,7 @@ namespace ChatWithDocsMobileApp.Platforms.iOS
                 {
                     // Convert NSDictionary to GoogleUserInfoiOS
                     var userDict = userDetails.ToDictionary();
-                    var microsoftUserInfo = new GoogleUserInfo
+                    var microsoftUserInfo = new UserInfo
                     {
                         accessToken = userDict.TryGetValue("accessToken", out var idToken) ? idToken : null,
                         provider = "Microsoft",

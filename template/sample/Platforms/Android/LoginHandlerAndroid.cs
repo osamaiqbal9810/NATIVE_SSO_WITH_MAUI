@@ -11,7 +11,7 @@ namespace ChatWithDocsMobileApp.Platforms.Android
 {
     public class LoginHandlerAndroid : ILoginHandlerAndroid
     {
-        public event Action<GoogleUserInfo?>? onGoogleLoginCompleted = null;
+        public event Action<UserInfo?>? onGoogleLoginCompleted = null;
 
         public void handleLoginAsync()
         {
@@ -47,9 +47,9 @@ namespace ChatWithDocsMobileApp.Platforms.Android
     }
     public class KotlinCallback : Java.Lang.Object, ICallback
     {
-        private event Action<GoogleUserInfo> _onGoogleLoginCompleted;
+        private event Action<UserInfo> _onGoogleLoginCompleted;
 
-        public KotlinCallback(Action<GoogleUserInfo> onGoogleLoginCompleted)
+        public KotlinCallback(Action<UserInfo> onGoogleLoginCompleted)
         {
             _onGoogleLoginCompleted = onGoogleLoginCompleted;
         }
@@ -60,7 +60,7 @@ namespace ChatWithDocsMobileApp.Platforms.Android
                 _onGoogleLoginCompleted.Invoke(null);
             }  else {
                 Console.WriteLine($"Received result from Kotlin: {result.Email}");
-                var userInfo = new GoogleUserInfo();
+                var userInfo = new UserInfo();
                 userInfo.provider = "Google";
                 userInfo.providerId = "google";
                 userInfo.accessToken = result.IdToken ?? "";

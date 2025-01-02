@@ -43,7 +43,10 @@ public partial class LoginPage : ContentPage
 
     private async void OnLoginClicked(object sender, EventArgs e)
     {
-        var isLoggedIn = await _loginService.loginInAppUser(email: _loginViewModel.Email ?? "" , password: _loginViewModel.Password ?? "");
+        var userInfo = new UserInfo();
+        userInfo.email = _loginViewModel.Email ?? "";
+        userInfo.password = _loginViewModel.Password ?? "";
+        var isLoggedIn = await _loginService.loginUser("auth/signIn", userInfo);
         if (isLoggedIn.Success)
         {
             App.Current?.MainPage?.Navigation.PushAsync(new DashboardPage());
@@ -91,12 +94,12 @@ public partial class LoginPage : ContentPage
         }
     }
 
-    private async void onSSOLoginCompleted(GoogleUserInfo? userInfo)
+    private async void onSSOLoginCompleted(UserInfo? userInfo)
     {
         _loginViewModel.IsLoading = false;
         if (userInfo != null)
         {
-         var isLoggedIn = await _loginService.loginSSOUser(userInfo);
+         var isLoggedIn = await _loginService.loginUser("auth/CreateSSOUser",userInfo);
             if (isLoggedIn.Success)
             {
                 App.Current?.MainPage?.Navigation.PushAsync(new DashboardPage());

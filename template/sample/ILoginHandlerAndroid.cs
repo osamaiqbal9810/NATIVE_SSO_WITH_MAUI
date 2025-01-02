@@ -9,7 +9,7 @@ namespace ChatWithDocsMobileApp
 {
     public interface ILoginHandlerAndroid
     {
-        event Action<GoogleUserInfo?> onGoogleLoginCompleted;
+        event Action<UserInfo?> onGoogleLoginCompleted;
         void handleLoginAsync();
     }
 }
